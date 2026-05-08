@@ -20,7 +20,7 @@ public class Locacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer dias;
+    private int dias;
     private BigDecimal valorTotal;
 
     @ManyToOne
