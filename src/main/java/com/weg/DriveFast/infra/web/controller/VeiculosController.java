@@ -28,4 +28,40 @@ import com.weg.DriveFast.application.dto.mensagens.MensagemDTO;
 @RequestMapping("/veiculos")
 public class VeiculosController {
 
+    private final VeiculoServiceImpl veiculoServiceImpl;
+
+    public VeiculosController(VeiculoServiceImpl veiculoServiceImpl) {
+        this.veiculoServiceImpl = veiculoServiceImpl;
+    }
+
+    @PostMapping()
+    public ResponseEntity<VeiculoResponseDTO> save (@RequestBody VeiculoCreateDTO veiculoCreateDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(veiculoServiceImpl.save(veiculoCreateDTO));
+    }
+    
+    @GetMapping()
+    public ResponseEntity<List<VeiculoResponseDTO>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(veiculoServiceImpl.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VeiculoResponseDTO> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(veiculoServiceImpl.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VeiculoResponseDTO> update(@PathVariable Long id, @RequestBody VeiculoUpdateDTO veiculoUpdateDTO){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(veiculoServiceImpl.update(id, veiculoUpdateDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MensagemDTO> delete(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(veiculoServiceImpl.delete(id));
+    }
+
 }
