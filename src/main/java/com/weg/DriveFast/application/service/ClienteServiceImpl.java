@@ -42,7 +42,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List<ClienteResponseDTO> findAll() {
-        return List.of();
+        return clienteRepositoryJpa.findAll()
+        .stream()
+        .map(clienteMapper::toResponseDto)
+        .toList();
     }
 
     @Override
