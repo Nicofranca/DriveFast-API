@@ -50,16 +50,43 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponseDTO findById(Long id) {
-        return null;
+
+        Cliente cliente = clienteRepositoryJpa.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Erro ao buscar usuario"));
+
+        if(cliente.getId() == null){
+            throw new RuntimeException("O id do Cliente nao pode ser nulo!");
+        }
+
+        return clienteMapper.toResponseDto(cliente);
     }
 
     @Override
     public ClienteResponseDTO update(Long clienteId, ClienteUpdateDTO clienteUpdateDTO) {
-        return null;
+
+        Cliente cliente = clienteRepositoryJpa.findById(clienteId)
+                            .orElseThrow(() -> new RuntimeException("Erro ao buscar usuario"));
+
+        cliente.setNome(clienteUpdateDTO.nome());
+        cliente.setEmail(clienteUpdateDTO.email());
+
+        clienteRepositoryJpa.save(cliente);
+
+        return clienteMapper.toResponseDto(cliente);
     }
 
     @Override
     public MensagemDTO delete(Long id) {
-        return null;
+
+        Cliente cliente = clienteRepositoryJpa.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Erro ao buscar usuario"));
+
+        if(cliente.getId() == null){
+            throw new RuntimeException("O id do Cliente nao pode ser nulo!");
+        }
+
+        clienteRepositoryJpa.delete(cliente);
+
+        return new MensagemDTO("Usuário removido com sucesso!");
     }
 }
