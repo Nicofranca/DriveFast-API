@@ -1,5 +1,6 @@
 package com.weg.DriveFast.infra.repository;
 
+import com.weg.DriveFast.application.dto.cliente.ClienteCreateDTO;
 import com.weg.DriveFast.domain.Cliente;
 import com.weg.DriveFast.infra.repository.projections.ClienteGastoProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface ClienteRepositoryJpa extends JpaRepository<Cliente, Long> {
                             GROUP BY cliente_id""",
             nativeQuery = true)
     List<ClienteGastoProjection> relatorioGastos();
+
+
 }
